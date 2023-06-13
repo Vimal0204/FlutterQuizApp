@@ -1,75 +1,55 @@
-import 'package:adv_basics/data/question.dart';
-import 'package:adv_basics/models/answer_button.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:adv_basics/models/quiz_question.dart';
 
-class Question extends StatefulWidget {
-  const Question(this.onSelectAnswer,{super.key});
-  final void Function(String answer) onSelectAnswer;
-  @override
-  State<Question> createState() {
-    return _QuestionState();
-  }
-}
-
-class _QuestionState extends State<Question> {
-  final List<Color> colList1 = const [
-    Color.fromARGB(255, 45, 7, 98),
-    Color.fromARGB(255, 22, 12, 88),
-  ];
-  var currentQuestionIndex = 0;
-  void answerQuestion(String selectedAnswer) {
-    widget.onSelectAnswer(selectedAnswer);
-    setState(() {
-      currentQuestionIndex++;
-    });
-  }
-
-  @override
-  Widget build(context) {
-    final currentQuestion = question[currentQuestionIndex];
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-        colors: colList1,
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      )),
-      child: SizedBox(
-        width: double.infinity,
-        child: Container(
-          margin: const EdgeInsets.all(40),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  currentQuestion.text,
-                  style: GoogleFonts.lato(
-                    color: const Color.fromARGB(234, 226, 239, 216),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                ...currentQuestion.getShuffledAnswer().map((answer) {
-                  return AnswerButton(
-                    answer,
-                    (){
-                      answerQuestion(answer);
-                    },
-                  );
-                })
-                // AnswerButton(currentQuestion.answer[0],(){}),
-                // AnswerButton(currentQuestion.answer[1],(){}),
-                // AnswerButton(currentQuestion.answer[2],(){}),
-                // AnswerButton(currentQuestion.answer[3],(){}),
-              ]),
-        ),
-      ),
-    );
-  }
-}
+const question = [
+   QuizQuestion(
+  'What are the main building blocks of Flutter UIs?',
+  [
+    'widgets',
+    'components',
+    'blocks',
+    'functions',
+  ],
+), 
+  QuizQuestion('How are Flutter UIs built?', [
+    'By combining widgets in code',
+    'By combining widgets in a visual editor',
+    'By defining widgets in config files',
+    'By using XCode for iOS and Android Studio for Android',
+  ]),
+  QuizQuestion(
+    'What\'s the purpose of a StatefulWidget?',
+    [
+      'Update UI as data changes',
+      'Update data as UI changes',
+      'Ignore data changes',
+      'Render UI that does not depend on data',
+    ],
+  ),
+  QuizQuestion(
+    'Which widget should you try to use more often: StatelessWidget or StatefulWidget?',
+    [
+      'StatelessWidget',
+      'StatefulWidget',
+      'Both are equally good',
+      'None of the above',
+    ],
+  ),
+  QuizQuestion(
+    'What happens if you change data in a StatelessWidget?',
+    [
+      'The UI is not updated',
+      'The UI is updated',
+      'The closest StatefulWidget is updated',
+      'Any nested StatefulWidgets are updated',
+    ],
+  ),
+  QuizQuestion(
+    'How should you update data inside of StatefulWidgets?',
+    [
+      'By calling setState()',
+      'By calling updateData()',
+      'By calling updateUI()',
+      'By calling updateState()',
+    ],
+  ),
+];
